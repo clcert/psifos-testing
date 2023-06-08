@@ -6,6 +6,8 @@ from services.election import get_election
 
 NUM_ANSWERS = 3
 
+import time
+
 
 def check_close_election():
     response = get_election(NAME_ELECTION)
@@ -18,6 +20,11 @@ def check_close_election():
 def close_election(driver):
     # Ir a la página web
     driver.get(f"{URL_ADMIN}/admin/{NAME_ELECTION}/panel")
+
+   # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    time.sleep(1)
 
     # Abrimos el modal de cerrar elección
     close_election = WebDriverWait(driver, TIMEOUT).until(

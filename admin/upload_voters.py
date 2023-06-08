@@ -5,11 +5,11 @@ from config import URL_ADMIN, NAME_ELECTION, TIMEOUT, DIRECTORY_PATH, VOTERS_FIL
 from services.election import get_election
 
 NUM_ANSWERS = 3
+import time
 
 
 def check_init_election(element):
-
-    election_response = get_election(NAME_ELECTION)   
+    election_response = get_election(NAME_ELECTION)
 
     json_data = election_response.json()
     total_voters = json_data["total_voters"]
@@ -22,9 +22,14 @@ def upload_voters(driver):
     # Ir a la página web
     driver.get(f"{URL_ADMIN}/admin/{NAME_ELECTION}/panel")
 
+    time.sleep(1)
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
     # Abrimos el modal de subir votantes
     button_add = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "button-add-voters"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='button-add-voters']"))
     )
     button_add.click()
 

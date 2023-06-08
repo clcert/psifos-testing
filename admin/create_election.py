@@ -41,25 +41,20 @@ def create_election(driver):
 
     # Marcamos en 8 el peso de la elección
     weight_input = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "weight-input"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='weight-input']"))
     )
     weight_input.clear()
     weight_input.send_keys("8")
 
     # Elección privada
     private_input = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "private-input"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='private-input']"))
     )
     private_input.click()
 
-    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-    time.sleep(1)
-
     # Enviamos los datos para crear
     button_send = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "button-send-election"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='button-send-election']"))
     )
     button_send.click()
     time.sleep(1)

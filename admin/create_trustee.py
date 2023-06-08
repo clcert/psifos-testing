@@ -65,9 +65,14 @@ def create_trustee(driver):
     # Ir a la página web
     driver.get(f"{URL_ADMIN}/admin/{NAME_ELECTION}/panel")
 
+    time.sleep(1)
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
     # Accedemos a crear una elección
     button_create_trustee = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "button-add-trustee"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='button-add-trustee']"))
     )
     button_create_trustee.click()
 

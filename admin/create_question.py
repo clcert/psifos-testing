@@ -22,23 +22,18 @@ def check_question():
 def add_question(driver, question_number, select_number=1, choices_number=3):
     # Completamos los formularios
     add_question = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "add-question"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='add-question']"))
     )
     add_question.click()
 
     name_input = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, f"name-{question_number}"))
+        EC.presence_of_element_located((By.XPATH, f"//*[@id='name-{question_number}']"))
     )
     name_input.send_keys(f"Pregunta {question_number}")
 
-    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-    time.sleep(1)
-
     input_max_options = WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located(
-            (By.ID, f"question-{question_number}-max-answers")
+            (By.XPATH, f"//*[@id='question-{question_number}-max-answers']")
         )
     )
 
@@ -47,11 +42,13 @@ def add_question(driver, question_number, select_number=1, choices_number=3):
 
     # Enviamos los datos para crear
     button_add_option = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, f"add-option-{question_number}"))
+        EC.presence_of_element_located(
+            (By.XPATH, f"//*[@id='add-option-{question_number}']")
+        )
     )
 
     for i in range(choices_number):
-        # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
         time.sleep(1)
@@ -60,7 +57,7 @@ def add_question(driver, question_number, select_number=1, choices_number=3):
         # Esperamos a la pantalla de inicio
         input_option = WebDriverWait(driver, TIMEOUT).until(
             EC.presence_of_element_located(
-                (By.ID, f"question-{question_number}-text-option-{i}")
+                (By.XPATH, f"//*[@id='question-{question_number}-text-option-{i}']")
             )
         )
         input_option.send_keys(f"Respuesta {i + 1}")
@@ -70,9 +67,14 @@ def create_question(driver):
     # Ir a la página web
     driver.get(f"{URL_ADMIN}/admin/{NAME_ELECTION}/panel")
 
+    time.sleep(1)
+   # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
     # Accedemos a crear preguntas
     button_create_question = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "button-add-questions"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='button-add-questions']"))
     )
     button_create_question.click()
 
@@ -80,14 +82,14 @@ def create_question(driver):
     add_question(driver, 2, 2, 3)
 
     save_question = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "button-save-questions"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='button-save-questions']"))
     )
     save_question.click()
     time.sleep(1)
 
     # Esperamos a la pantalla de inicio
     WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "election-subtitle"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='election-subtitle']"))
     )
 
     check_question()
