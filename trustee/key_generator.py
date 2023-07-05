@@ -6,17 +6,7 @@ from services.election import get_election
 from selenium import webdriver
 from utils import get_driver_options
 
-from config import (
-    NAME_ELECTION,
-    TIMEOUT,
-    DIRECTORY_PATH,
-    TRUSTEE_NAME_1,
-    TRUSTEE_PASSWORD_1,
-    TRUSTEE_NAME_2,
-    TRUSTEE_PASSWORD_2,
-    TRUSTEE_NAME_3,
-    TRUSTEE_PASSWORD_3,
-)
+from config import NAME_ELECTION, TIMEOUT, DIRECTORY_PATH, TRUSTEES
 
 import time
 import threading
@@ -65,26 +55,19 @@ def trustee_generator_key(trustee_name, trustee_password):
 
 
 def key_generator():
-    # Crear un objeto Thread
-    trustee_1 = threading.Thread(
-        target=trustee_generator_key, args=(TRUSTEE_NAME_1, TRUSTEE_PASSWORD_1)
-    )
-    trustee_2 = threading.Thread(
-        target=trustee_generator_key, args=(TRUSTEE_NAME_2, TRUSTEE_PASSWORD_2)
-    )
-    trustee_3 = threading.Thread(
-        target=trustee_generator_key, args=(TRUSTEE_NAME_3, TRUSTEE_PASSWORD_3)
-    )
+    trustee_threads = []
+    for trustee in TRUSTEES:
+        # Crear un objeto Thread
+        trustee_thread = threading.Thread(
+            target=trustee_generator_key, args=(trustee["user"], trustee["password"])
+        )
+        trustee_threads.append(trustee_thread)
 
-    # Iniciar el hilo
-    trustee_1.start()
-    time.sleep(2)
-    trustee_2.start()
-    time.sleep(2)
-    trustee_3.start()
+    for t in trustee_threads:
+        t.start()
+        time.sleep(2)
 
-    # Esperar a que el hilo termine (opcional)
-    trustee_1.join()
-    trustee_2.join()
-    trustee_3.join()
+    for t in trustee_threads:
+        t.join()
+
     check_key()

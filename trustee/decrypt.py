@@ -5,17 +5,7 @@ from selenium import webdriver
 from trustee.login_trustee import login_trustee
 from utils import get_driver_options
 
-from config import (
-    NAME_ELECTION,
-    TIMEOUT,
-    DIRECTORY_PATH,
-    TRUSTEE_NAME_1,
-    TRUSTEE_PASSWORD_1,
-    TRUSTEE_NAME_2,
-    TRUSTEE_PASSWORD_2,
-    TRUSTEE_NAME_3,
-    TRUSTEE_PASSWORD_3,
-)
+from config import NAME_ELECTION, TIMEOUT, DIRECTORY_PATH, TRUSTEES
 
 import time
 
@@ -27,7 +17,7 @@ def check_decrypt(element):
 
 def trustee_decrypt(trustee_name, trustee_password):
     options = get_driver_options()
-    
+
     # Abrimos el navegador
     driver = webdriver.Chrome(options=options)
 
@@ -56,8 +46,6 @@ def trustee_decrypt(trustee_name, trustee_password):
 
 
 def decrypt():
-    trustee_decrypt(TRUSTEE_NAME_1, TRUSTEE_PASSWORD_1)
-    time.sleep(2)
-    trustee_decrypt(TRUSTEE_NAME_2, TRUSTEE_PASSWORD_2)
-    time.sleep(2)
-    trustee_decrypt(TRUSTEE_NAME_3, TRUSTEE_PASSWORD_3)
+    for trustee in TRUSTEES:
+        trustee_decrypt(trustee["user"], trustee["password"])
+        time.sleep(2)

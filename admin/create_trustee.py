@@ -1,14 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from config import (
-    URL_ADMIN,
-    NAME_ELECTION,
-    TIMEOUT,
-    TRUSTEE_NAME_1,
-    TRUSTEE_NAME_2,
-    TRUSTEE_NAME_3,
-)
+from config import URL_ADMIN, NAME_ELECTION, TIMEOUT, TRUSTEES
 from services.election import get_election
 
 import time
@@ -76,8 +69,7 @@ def create_trustee(driver):
     )
     button_create_trustee.click()
 
-    add_trustee(driver, TRUSTEE_NAME_1, TRUSTEE_NAME_1, TRUSTEE_NAME_1)
-    add_trustee(driver, TRUSTEE_NAME_2, TRUSTEE_NAME_2, TRUSTEE_NAME_2)
-    add_trustee(driver, TRUSTEE_NAME_3, TRUSTEE_NAME_3, TRUSTEE_NAME_3)
+    for trustee in TRUSTEES:
+        add_trustee(driver, trustee["user"], trustee["user"], trustee["user"])
 
     check_trustee()

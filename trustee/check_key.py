@@ -5,17 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from trustee.login_trustee import login_trustee
 from utils import get_driver_options
-from config import (
-    NAME_ELECTION,
-    TIMEOUT,
-    DIRECTORY_PATH,
-    TRUSTEE_NAME_1,
-    TRUSTEE_PASSWORD_1,
-    TRUSTEE_NAME_2,
-    TRUSTEE_PASSWORD_2,
-    TRUSTEE_NAME_3,
-    TRUSTEE_PASSWORD_3,
-)
+from config import NAME_ELECTION, TIMEOUT, DIRECTORY_PATH, TRUSTEES
 
 import time
 
@@ -56,8 +46,6 @@ def verify_trustee(trustee_name, trustee_password):
 
 
 def check_sk():
-    verify_trustee(TRUSTEE_NAME_1, TRUSTEE_PASSWORD_1)
-    time.sleep(2)
-    verify_trustee(TRUSTEE_NAME_2, TRUSTEE_PASSWORD_2)
-    time.sleep(2)
-    verify_trustee(TRUSTEE_NAME_3, TRUSTEE_PASSWORD_3)
+    for trustee in TRUSTEES:
+        verify_trustee(trustee["user"], trustee["password"])
+        time.sleep(2)

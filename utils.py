@@ -1,9 +1,7 @@
 from services.election import delete_election, get_election
 from config import (
     DIRECTORY_PATH,
-    TRUSTEE_NAME_1,
-    TRUSTEE_NAME_2,
-    TRUSTEE_NAME_3,
+    TRUSTEES,
     NAME_ELECTION,
 )
 from selenium import webdriver
@@ -18,26 +16,13 @@ def clear_test():
             # Al terminar eliminamos la elección
             delete_election()
 
-        # Eliminar archivo de trustee
-        ruta_archivo = (
-            f"{DIRECTORY_PATH}/trustee_key_{TRUSTEE_NAME_1}_{NAME_ELECTION}.txt"
-        )
-        if os.path.exists(ruta_archivo):
-            os.remove(ruta_archivo)
-
-        # Eliminar archivo de trustee
-        ruta_archivo = (
-            f"{DIRECTORY_PATH}/trustee_key_{TRUSTEE_NAME_2}_{NAME_ELECTION}.txt"
-        )
-        if os.path.exists(ruta_archivo):
-            os.remove(ruta_archivo)
-
-        # Eliminar archivo de trustee
-        ruta_archivo = (
-            f"{DIRECTORY_PATH}/trustee_key_{TRUSTEE_NAME_3}_{NAME_ELECTION}.txt"
-        )
-        if os.path.exists(ruta_archivo):
-            os.remove(ruta_archivo)
+        for trustee in TRUSTEES:
+            # Eliminar archivo de trustee
+            ruta_archivo = (
+                f"{DIRECTORY_PATH}/trustee_key_{trustee['user']}_{NAME_ELECTION}.txt"
+            )
+            if os.path.exists(ruta_archivo):
+                os.remove(ruta_archivo)
 
         print("Datos limpiados")
 
