@@ -1,13 +1,23 @@
-from services.election import delete_election, get_election
+from services.election import delete_election, get_election, get_election_result
 from config import (
     DIRECTORY_PATH,
     TRUSTEES,
     NAME_ELECTION,
 )
 from selenium import webdriver
-
+import json
 import os
 
+
+def print_results():
+    try:
+        election_result = get_election_result(NAME_ELECTION)
+        if election_result.status_code == 200:
+            election_result_json = json.loads(election_result.json())
+            for idx, q in enumerate(election_result_json):
+                print(f"Question #{idx}: {q['ans_results']}")
+    except Exception:
+        raise ("No se ha podido imprimir los resultados de la elección")
 
 def clear_test():
     try:

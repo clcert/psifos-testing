@@ -1,9 +1,10 @@
 from admin.main import admin_test
 from trustee.main import trustee_test
 from voter.main import voter_test
-from utils import clear_test
+from utils import clear_test, print_results
 
 import sys
+import time
 
 
 def execute_test():
@@ -27,7 +28,11 @@ def execute_test():
         admin_test("step_3")
 
         # Ejecutamos los test step_2 del trustee
-        trustee_test("step_2")
+        trustee_test("step_2")        
+
+        # Imprimir resultado de la elección
+        time.sleep(10)
+        print_results()
 
     except Exception:
         raise ("Ha ocurrido un error")
