@@ -3,7 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium import webdriver
 from voter.login_voter import login_voter
-from config import TIMEOUT, DIRECTORY_PATH, VOTERS_LOGIN_FILE_NAME
+from config import TIMEOUT, DIRECTORY_PATH, VOTERS_LOGIN_FILE_NAME, TYPE_QUESTION
 
 import random
 import time
@@ -32,6 +32,25 @@ def vote_question(driver, question_number, number_choices=1):
     )
     next_button.click()
 
+def vote_mixnet(driver):
+    
+    for i in range(6):
+
+        # Esperar a que el elemento select aparezca en la página
+        select_element = driver.find_elements(By.CLASS_NAME, "css-b62m3t-container")
+        select_element[i].click()
+        time.sleep(1)
+        list_box = driver.find_element(By.ID, f'react-select-{i + 2}-listbox')
+        hijos = list_box.find_element(By.XPATH, './*')
+        nietos = hijos.find_elements(By.XPATH, './*')
+        nietos[i].click()
+
+    # Siguiente
+    next_button = WebDriverWait(driver, TIMEOUT).until(
+        EC.presence_of_element_located((By.ID, "next-button"))
+    )
+    next_button.click()
+
 
 def process_voter(voter_login, voter_password):
     options = webdriver.ChromeOptions()
@@ -41,10 +60,15 @@ def process_voter(voter_login, voter_password):
     driver = webdriver.Chrome(options=options)
 
     login_voter(driver, voter_login, voter_password)
+    time.sleep(2)
 
-    vote_question(driver, 1, 1)
-    time.sleep(1)
-    vote_question(driver, 2, 2)
+    if TYPE_QUESTION == 'mixnet':
+        vote_mixnet(driver)
+
+    else:
+        vote_question(driver, 1, 1)
+        time.sleep(1)
+        vote_question(driver, 2, 2)
 
     # Enviar voto
     send_button = WebDriverWait(driver, TIMEOUT).until(

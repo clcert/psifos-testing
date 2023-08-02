@@ -1,7 +1,7 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from config import URL_ADMIN, NAME_ELECTION, TIMEOUT
+from config import URL_ADMIN, NAME_ELECTION, TIMEOUT, TYPE_QUESTION
 from services.election import get_election
 
 NUM_ANSWERS = 3
@@ -35,6 +35,9 @@ def compute_tally(driver):
         EC.presence_of_element_located((By.ID, "button-compute-tally"))
     )
     button_compute_tally.click()
+
+    if TYPE_QUESTION == 'mixnet':
+        time.sleep(30)
 
     WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.ID, "feedback-message"))

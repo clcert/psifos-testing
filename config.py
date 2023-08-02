@@ -25,6 +25,8 @@ VOTERS_LOGIN_FILE_NAME = os.environ.get("VOTERS_LOGIN_FILE_NAME")
 TIMEOUT = os.environ.get("TIMEOUT")
 LOGIN_SITE = os.environ.get("LOGIN_SITE")
 
+TYPE_QUESTION = os.environ.get("TYPE_QUESTION")
+
 
 # Lee el archivo JSON
 with open(f"trustees.json", "r") as f:
