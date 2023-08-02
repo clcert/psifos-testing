@@ -10,6 +10,11 @@ import requests
 import base64
 
 
+def get_election_result(short_name):
+    # Realiza una solicitud GET a una URL
+    response = requests.get(f"{INFO_URL}/election/{short_name}/result")
+    return response
+
 def get_election(short_name):
     # Realiza una solicitud GET a una URL
     response = requests.get(f"{INFO_URL}/election/{short_name}")
