@@ -72,8 +72,11 @@ def process_voter(voter_login, voter_password):
 
     # Enviar voto
     send_button = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "proceed_button"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='proceed_button']"))
     )
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
     send_button.click()
 
     # El voto ha sido enviado con exito

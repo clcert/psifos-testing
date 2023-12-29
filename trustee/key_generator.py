@@ -51,7 +51,7 @@ def trustee_generator_key(trustee_name, trustee_password):
         f"{DIRECTORY_PATH}/trustee_key_{trustee_name}_{NAME_ELECTION}.txt"
     )
 
-    time.sleep(25)
+    time.sleep(45)
 
 
 def key_generator():

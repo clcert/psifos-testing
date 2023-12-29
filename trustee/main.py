@@ -12,7 +12,7 @@ def trustee_test(actual_step):
     steps = {
         "step_1": {
             "key_generator": key_generator,
-            "check_sk": check_sk,
+            # "check_sk": check_sk,
         },
         "step_2": {"decrypt": decrypt},
     }

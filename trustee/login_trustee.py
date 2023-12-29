@@ -21,6 +21,13 @@ def login_trustee(driver, trustee_name, trustee_password):
     if LOGIN_SITE == "uchile":
         username_element_id = "usernameInput"
         password_element_id = "passwordInput"
+    if LOGIN_SITE == "clave-unica":
+        login_button = WebDriverWait(driver, TIMEOUT).until(
+            EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div/form/div/div/a"))
+        )
+        login_button.click()
+        username_element_id = "uname"
+        password_element_id = "pword"
 
     # Rellenamos el formulario del custodio
     trustee_name_input = WebDriverWait(driver, TIMEOUT).until(

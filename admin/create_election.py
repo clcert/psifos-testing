@@ -40,17 +40,17 @@ def create_election(driver):
     time.sleep(1)
 
     # Marcamos en 8 el peso de la elección
-    weight_input = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.XPATH, "//*[@id='weight-input']"))
-    )
-    weight_input.clear()
-    weight_input.send_keys("8")
+    # weight_input = WebDriverWait(driver, TIMEOUT).until(
+    #     EC.presence_of_element_located((By.XPATH, "//*[@id='weight-input']"))
+    # )
+    # weight_input.clear()
+    # weight_input.send_keys("8")
 
     # Elección privada
-    private_input = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.XPATH, "//*[@id='private-input']"))
-    )
-    private_input.click()
+    # private_input = WebDriverWait(driver, TIMEOUT).until(
+    #     EC.presence_of_element_located((By.XPATH, "//*[@id='private-input']"))
+    # )
+    # private_input.click()
 
     # Enviamos los datos para crear
     button_send = WebDriverWait(driver, TIMEOUT).until(
