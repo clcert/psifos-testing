@@ -11,20 +11,41 @@ import csv
 import threading
 
 
+def print_vote(question_number, choices_list):
+    options = [0] * 5
+    if 3 not in choices_list and 4 not in choices_list:
+        for choice in choices_list:
+            options[choice] = 1
+    elif choices_list[-1] == 3:
+        options[3] = 1
+    elif choices_list[-1] == 4:
+        options[4] = 1
+    else:
+        options[choices_list[-1]] = 1
+    
+    print("Question #" + str(question_number) + ": " + str(options))
+
 def vote_question(driver, question_number, number_choices=1):
     choices_list = []
-    for choice in range(number_choices):
-        choice = random.randint(0, 2)
+    for i in range(number_choices):
+        choice = random.randint(0, 2 + 2)
         while choice in choices_list:
-            choice = random.randint(0, 2)
+            choice = random.randint(0, 2 + 2)
         choices_list.append(choice)
         # Elegimos la alternativa
+        if choice <= 2:
+            input_id = f"question-{question_number - 1}-answer-{choice}"
+        elif choice == 3:
+            input_id = f"white"
+        else:
+            input_id = f"null"
         input_answers = WebDriverWait(driver, TIMEOUT).until(
             EC.presence_of_element_located(
-                (By.ID, f"question-{question_number - 1}-answer-{choice}")
+                (By.ID, input_id)
             )
         )
         input_answers.click()
+    print_vote(question_number, choices_list)
 
     # Siguiente
     next_button = WebDriverWait(driver, TIMEOUT).until(

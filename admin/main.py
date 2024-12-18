@@ -10,7 +10,7 @@ from selenium import webdriver
 
 
 
-def admin_test(actual_step):
+def admin_test(actual_step, max_weight=1, normalization=False):
     steps = {
         "step_1": {
             "login_test": login_test,
@@ -35,11 +35,14 @@ def admin_test(actual_step):
 
     step = steps[actual_step]
 
-    print("======ADMIN-TEST======")
+    print("====== ADMIN-TEST ======")
     for index, (name, test) in enumerate(step.items()):
         try:
             print(f"\nEjecutando prueba {name} {index + 1}/{len(step)}")
-            test(driver)
+            if name == 'create_election':
+                test(driver, max_weight, normalization)
+            else:
+                test(driver)
             print(f"Prueba {name} correcta ✓\n")
 
         except Exception as e:

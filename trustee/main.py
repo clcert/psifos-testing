@@ -24,7 +24,7 @@ def trustee_test(actual_step):
 
     step = steps[actual_step]
 
-    print("======TRUSTEE-TEST======")
+    print("====== TRUSTEE-TEST ======")
     for index, (name, test) in enumerate(step.items()):
         try:
             print(f"\nEjecutando prueba {name} {index + 1}/{len(step)}")

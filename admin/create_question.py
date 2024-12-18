@@ -61,7 +61,9 @@ def add_question(driver, question_number, select_number=1, choices_number=3):
                 (By.XPATH, f"//*[@id='question-{question_number}-text-option-{i}']")
             )
         )
-        input_option.send_keys(f"Respuesta {i + 1}")
+        candidate_text = f"Respuesta {i + 1}"
+        for c in candidate_text:
+            input_option.send_keys(c)
 
 def add_question_mixnet(driver, question_number):
     # Completamos los formularios
@@ -84,7 +86,7 @@ def add_question_mixnet(driver, question_number):
     select = Select(select_element)
 
     # Seleccionamos la opción 'mixnet' por su valor o texto visible (depende del caso)
-    select.select_by_value('mixnet_question')  # Opción por valor
+    select.select_by_value('MIXNET')  # Opción por valor
 
     input_max_options = WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located(
@@ -100,7 +102,7 @@ def add_question_mixnet(driver, question_number):
 
     # Esperamos a que el campo de entrada aparezca en la página
     file_input_element = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.XPATH, f"//*[@id='fileinput']"))
+        EC.presence_of_element_located((By.XPATH, f"//*[@id='fileinput_1']"))
     )
 
     # Enviamos la ruta del archivo al campo de entrada utilizando el método send_keys

@@ -13,7 +13,7 @@ def check_election():
         raise Exception("La elección no se ha creado con exito")
 
 
-def create_election(driver):
+def create_election(driver, max_weight=1, normalization=False, question_type='normal'):
     # Ir a la página web
     driver.get(f"{URL_ADMIN}/admin/home")
 
@@ -40,17 +40,19 @@ def create_election(driver):
     time.sleep(1)
 
     # Marcamos en 8 el peso de la elección
-    # weight_input = WebDriverWait(driver, TIMEOUT).until(
-    #     EC.presence_of_element_located((By.XPATH, "//*[@id='weight-input']"))
-    # )
-    # weight_input.clear()
-    # weight_input.send_keys("8")
+    if max_weight != 1:
+        weight_input = WebDriverWait(driver, TIMEOUT).until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='weight-input']"))
+        )
+        weight_input.clear()
+        weight_input.send_keys(str(max_weight))
 
-    # Elección privada
-    # private_input = WebDriverWait(driver, TIMEOUT).until(
-    #     EC.presence_of_element_located((By.XPATH, "//*[@id='private-input']"))
-    # )
-    # private_input.click()
+    # Elección normalizada
+    if normalization:
+        normalized_election = WebDriverWait(driver, TIMEOUT).until(
+            EC.presence_of_element_located((By.XPATH, "/html/body/div/div/section[2]/div/div[10]/div/label/input"))
+        )
+        normalized_election.click()
 
     # Enviamos los datos para crear
     button_send = WebDriverWait(driver, TIMEOUT).until(

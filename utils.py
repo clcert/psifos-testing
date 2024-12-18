@@ -9,13 +9,19 @@ import json
 import os
 
 
-def print_results():
+def print_results(max_weight=1, normalization=False):
+    
+    print("====== RESULTADOS ======\n")
     try:
         election_result = get_election_result(NAME_ELECTION)
         if election_result.status_code == 200:
-            election_result_json = json.loads(election_result.json())
-            for idx, q in enumerate(election_result_json['results_total']):
-                print(f"Question #{idx}: {q['ans_results']}")
+            # election_result_json = json.loads(election_result.json())
+            election_result_json = election_result.json()
+            for idx, q in enumerate(election_result_json['total_result']):
+                if normalization:
+                    print(f"Question #{idx}: {list(map(lambda v: v/max_weight, q))}")
+                else:
+                    print(f"Question #{idx}: {list(map(lambda v: v, q))}")
     except Exception:
         raise ("No se ha podido imprimir los resultados de la elección")
 

@@ -19,7 +19,7 @@ def voter_test(actual_step):
 
     step = steps[actual_step]
 
-    print("======VOTER-TEST======")
+    print("====== VOTER-TEST ======")
     for index, (name, test) in enumerate(step.items()):
         try:
             print(f"\nEjecutando prueba {name} {index + 1}/{len(step)}")
