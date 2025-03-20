@@ -41,5 +41,7 @@ def close_election(driver):
     WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.ID, "feedback-message"))
     )
+    
+    time.sleep(10)
 
     check_close_election()

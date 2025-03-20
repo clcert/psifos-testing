@@ -3,6 +3,7 @@ from admin.create_election import create_election
 from admin.upload_voters import upload_voters
 from admin.create_question import create_question
 from admin.create_trustee import create_trustee
+from admin.ready_generation import ready_generation
 from admin.close_election import close_election
 from admin.compute_tally import compute_tally
 from admin.init_election import init_election
@@ -18,6 +19,7 @@ def admin_test(actual_step, max_weight=1, normalization=False):
             "upload_voters": upload_voters,
             "create_question": create_question,
             "create_trustee": create_trustee,
+            "set_ready_for_generation": ready_generation,
         },
         "step_2": {"login_test": login_test, "init_election": init_election},
         "step_3": {

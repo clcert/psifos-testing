@@ -50,7 +50,7 @@ def create_election(driver, max_weight=1, normalization=False, question_type='no
     # Elección normalizada
     if normalization:
         normalized_election = WebDriverWait(driver, TIMEOUT).until(
-            EC.presence_of_element_located((By.XPATH, "/html/body/div/div/section[2]/div/div[10]/div/label/input"))
+            EC.presence_of_element_located((By.XPATH, "/html/body/div/div/section[2]/div/div[9]/div/label/input"))
         )
         normalized_election.click()
 

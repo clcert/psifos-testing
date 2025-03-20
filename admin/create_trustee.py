@@ -70,6 +70,6 @@ def create_trustee(driver):
     button_create_trustee.click()
 
     for trustee in TRUSTEES:
-        add_trustee(driver, trustee["user"], trustee["user"], trustee["user"])
+        add_trustee(driver, trustee["user"].upper(), trustee["user"], trustee["user"] + "@uchile.cl")
 
     check_trustee()
