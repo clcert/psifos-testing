@@ -89,7 +89,7 @@ def process_voter(voter_login, voter_password):
     else:
         vote_question(driver, 1, 1)
         time.sleep(1)
-        vote_question(driver, 2, 2)
+        # vote_question(driver, 2, 2)
 
     # Enviar voto
     send_button = WebDriverWait(driver, TIMEOUT).until(
@@ -104,6 +104,8 @@ def process_voter(voter_login, voter_password):
     WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.ID, "back-vote-button"))
     )
+    
+    driver.close()
 
 
 def vote_normal(driver):
@@ -115,7 +117,7 @@ def vote_normal(driver):
         # Crea un lector de CSV
         lector_csv = csv.reader(archivo_csv)
         lector_csv = list(lector_csv)
-        final_array = split_array(lector_csv, 3)
+        final_array = split_array(lector_csv, 2)
         threads = []
 
         # Itera sobre cada fila del archivo CSV

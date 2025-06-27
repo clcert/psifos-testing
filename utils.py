@@ -35,7 +35,7 @@ def clear_test():
         for trustee in TRUSTEES:
             # Eliminar archivo de trustee
             ruta_archivo = (
-                f"{DIRECTORY_PATH}/LlavePrivada_{trustee['user']}.key"
+                f"{DIRECTORY_PATH}/ClavePrivada_{trustee['full_name']}.json"
             )
             if os.path.exists(ruta_archivo):
                 os.remove(ruta_archivo)
