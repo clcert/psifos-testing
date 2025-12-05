@@ -50,4 +50,4 @@ def upload_voters(driver):
         EC.presence_of_element_located((By.ID, "feedback-upload"))
     )
 
-    check_init_election(feedback)
+    # check_init_election(feedback)

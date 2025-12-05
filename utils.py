@@ -5,7 +5,6 @@ from config import (
     NAME_ELECTION,
 )
 from selenium import webdriver
-import json
 import os
 
 
@@ -35,7 +34,7 @@ def clear_test():
         for trustee in TRUSTEES:
             # Eliminar archivo de trustee
             ruta_archivo = (
-                f"{DIRECTORY_PATH}/trustee_key_{trustee['user']}_{NAME_ELECTION}.txt"
+                f"{DIRECTORY_PATH}/ClavePrivada_{trustee['full_name']}.json"
             )
             if os.path.exists(ruta_archivo):
                 os.remove(ruta_archivo)
@@ -49,10 +48,10 @@ def clear_test():
 def get_driver_options():
     options = webdriver.ChromeOptions()
     options.add_argument("--private")
-    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    # options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36"
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Chrome/537.36"
     )
 
     return options

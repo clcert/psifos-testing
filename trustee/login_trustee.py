@@ -13,7 +13,7 @@ import time
 
 def login_trustee(driver, trustee_name, trustee_password):
     # Ir a la página web
-    driver.get(f"{OPERATIVE_URL}/{NAME_ELECTION}/trustee/login")
+    driver.get(f"{OPERATIVE_URL}/trustee/login/panel")
 
     if LOGIN_SITE == "clcert":
         username_element_id = "id_username"

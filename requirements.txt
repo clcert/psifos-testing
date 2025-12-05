@@ -1,3 +1,5 @@
 python-dotenv
 selenium
 requests
+aiohttp
+aiodns

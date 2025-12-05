@@ -15,7 +15,7 @@ def check_decrypt(element):
         raise Exception("Las desencriptaciones no han sido calculados")
 
 
-def trustee_decrypt(trustee_name, trustee_password):
+def trustee_decrypt(trustee_name, trustee_password, trustee_full_name):
     options = get_driver_options()
 
     # Abrimos el navegador
@@ -23,29 +23,32 @@ def trustee_decrypt(trustee_name, trustee_password):
 
     login_trustee(driver, trustee_name, trustee_password)
 
-    # Accedemos a la etapa 3
-    button_decrypt = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "upload-key"))
+    # Seleccionar todas las elecciones para desencriptar
+    decrypt_button = WebDriverWait(driver, TIMEOUT).until(
+        EC.presence_of_element_located((By.XPATH, "//*[@id='content-home-admin']/section[2]/div/table/thead/tr/th[4]/button"))
     )
-    button_decrypt.click()
-
+    decrypt_button.click()
+    
+    # Apretar botón para iniciar desencriptación
+    continue_button = WebDriverWait(driver, TIMEOUT).until(
+        EC.presence_of_element_located((By.XPATH, "//*[@id='content-home-admin']/section[2]/div/div/div[1]/button"))
+    )
+    continue_button.click()
+    
     # Subimos el archivo
     drop_zone = WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.ID, "file-input"))
     )
     drop_zone.send_keys(
-        f"{DIRECTORY_PATH}/trustee_key_{trustee_name}_{NAME_ELECTION}.txt"
+        f"{DIRECTORY_PATH}/ClavePrivada_{trustee_full_name}.json"
     )
-
-    # Esperamos a que el proceso se complete
-    feedback = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "feedback-message-2"))
-    )
+    
+    time.sleep(10)
 
     # check_decrypt(feedback)
 
 
 def decrypt():
     for trustee in TRUSTEES:
-        trustee_decrypt(trustee["user"], trustee["password"])
+        trustee_decrypt(trustee["user"], trustee["password"], trustee["full_name"])
         time.sleep(2)

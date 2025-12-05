@@ -14,7 +14,7 @@ def check_trustee():
 
     json_data = response.json()
     trustees = json_data["trustees"]
-    if len(trustees) == 0 and trustees[0]["name"] != "ahevia":
+    if len(trustees) == 0:
         raise Exception("El custodio no ha sido creado con exito")
 
 
@@ -48,7 +48,7 @@ def add_trustee(driver, name_trustee, login_id, trustee_email):
 
     # Enviamos la información del custodio
     send_trustee = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.ID, "send-trustee"))
+        EC.presence_of_element_located((By.XPATH, "//*[@id='send-trustee']"))
     )
     send_trustee.click()
     time.sleep(1)
@@ -70,6 +70,6 @@ def create_trustee(driver):
     button_create_trustee.click()
 
     for trustee in TRUSTEES:
-        add_trustee(driver, trustee["user"], trustee["user"], trustee["user"])
+        add_trustee(driver, trustee["user"].upper(), trustee["user"], trustee["user"] + "@uchile.cl")
 
     check_trustee()

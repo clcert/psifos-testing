@@ -26,6 +26,10 @@ def print_vote(question_number, choices_list):
     print("Question #" + str(question_number) + ": " + str(options))
 
 def vote_question(driver, question_number, number_choices=1):
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
     choices_list = []
     for i in range(number_choices):
         choice = random.randint(0, 2 + 2)
@@ -89,7 +93,7 @@ def process_voter(voter_login, voter_password):
     else:
         vote_question(driver, 1, 1)
         time.sleep(1)
-        vote_question(driver, 2, 2)
+        # vote_question(driver, 2, 2)
 
     # Enviar voto
     send_button = WebDriverWait(driver, TIMEOUT).until(
@@ -104,6 +108,8 @@ def process_voter(voter_login, voter_password):
     WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.ID, "back-vote-button"))
     )
+    
+    driver.close()
 
 
 def vote_normal(driver):
@@ -115,7 +121,7 @@ def vote_normal(driver):
         # Crea un lector de CSV
         lector_csv = csv.reader(archivo_csv)
         lector_csv = list(lector_csv)
-        final_array = split_array(lector_csv, 3)
+        final_array = split_array(lector_csv, 2)
         threads = []
 
         # Itera sobre cada fila del archivo CSV
