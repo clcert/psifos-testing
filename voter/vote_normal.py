@@ -26,6 +26,10 @@ def print_vote(question_number, choices_list):
     print("Question #" + str(question_number) + ": " + str(options))
 
 def vote_question(driver, question_number, number_choices=1):
+    # Ejecuta JavaScript para realizar el scroll hasta el final de la página
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
     choices_list = []
     for i in range(number_choices):
         choice = random.randint(0, 2 + 2)

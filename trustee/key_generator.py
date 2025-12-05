@@ -34,7 +34,9 @@ def trustee_generator_key(trustee_name, trustee_password, trustee_full_name):
         EC.presence_of_element_located((By.XPATH, "//*[@id='content-home-admin']/section[2]/div/table/thead/tr/th[2]/button"))
     )
     sync_button.click()
-    
+
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
     # Apretar botón para iniciar generación de claves
     continue_button = WebDriverWait(driver, TIMEOUT).until(
         EC.presence_of_element_located((By.XPATH, "//*[@id='content-home-admin']/section[2]/div/div/div[1]/button"))

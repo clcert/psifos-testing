@@ -10,8 +10,9 @@ ADMIN_USER = os.environ.get("ADMIN_USER")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD")
 
 NAME_ELECTION = os.environ.get("NAME_ELECTION")
+ELECTIONS_FILE = os.environ.get("ELECTIONS_FILE")
 
-URL_ADMIN = os.environ.get("URL_ADMIN")
+URL_ADMIN = os.environ.get("ADMIN_URL")
 OPERATIVE_URL = os.environ.get("OPERATIVE_URL")
 INFO_URL = os.environ.get("INFO_URL")
 
@@ -26,5 +27,6 @@ TRUSTEES_FILE_NAME = os.environ.get("TRUSTEES_FILE_NAME")
 TIMEOUT = os.environ.get("TIMEOUT")
 
 # Lee el archivo JSON con los trustees
-with open(DIRECTORY_PATH + "/" + TRUSTEES_FILE_NAME + ".json", "r") as f:
-    TRUSTEES = json.load(f)
+# with open(DIRECTORY_PATH + "/" + TRUSTEES_FILE_NAME + ".json", "r") as f:
+#     TRUSTEES = json.load(f)
+TRUSTEES = []

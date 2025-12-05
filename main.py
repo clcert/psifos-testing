@@ -3,21 +3,19 @@ from trustee.main import trustee_test
 from voter.main import voter_test
 from utils import clear_test, print_results
 
-import sys
-import time
 import argparse
 
 
 def execute_all_tests(max_weight, normalization):
     try:
         # Al iniciar eliminamos la elección (si existiese)
-        # clear_test()
+        clear_test()
 
         # Ejecutamos los test step_1 del administrador
         # admin_test("step_1", max_weight, normalization)
 
         # Ejecutamos los test del trustee
-        trustee_test("step_1")
+        # trustee_test("step_1")
 
         # Ejecutamos los test step_2 del administrador
         # admin_test("step_2")
@@ -48,6 +46,7 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--vote', action='store_true', default=False)
     parser.add_argument('-d', '--decrypt', action='store_true', default=False)
     parser.add_argument('-p', '--print', action='store_true', default=False)
+    parser.add_argument('-b', '--bundle', action='store_true', default=False)
     args = parser.parse_args()
     
     if args.clear:
@@ -64,6 +63,9 @@ if __name__ == "__main__":
         
     elif args.print:
         print_results(args.max_weight, args.normalization)
+        
+    elif args.bundle:
+        admin_test("step_4")
 
     else:
         execute_all_tests(args.max_weight, args.normalization)
