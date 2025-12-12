@@ -1,7 +1,11 @@
 __pycache__/
 
+.vscode
+.DS_Store
 *.log
 *.env
 /venv
 .idea/
-trustees.json
+election*.json
+padrones/padron_*.csv
+!padrones/padron_example.csv

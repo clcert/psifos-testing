@@ -5,6 +5,7 @@ import sys
 import aiohttp
 import asyncio
 import os
+import time
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -144,31 +145,38 @@ async def config_election(elections):
         if voters_file != "":
             await add_voters(election_name, voters_file)
         set_ready_for_key_generation(election_name)
+        time.sleep(2)
+        
 
 def start_elections(elections):
     for election in elections:
         election_name = election['short_name']
         start_election(election_name)
+        time.sleep(2)
 
 def end_elections(elections):
     for election in elections:
         election_name = election['short_name']
         end_election(election_name)
+        time.sleep(2)
 
 def compute_tally_elections(elections):
     for election in elections:
         election_name = election['short_name']
         compute_tally(election_name)
+        time.sleep(2)  # Espera para asegurar que el conteo se complete
 
 def release_elections_results(elections):
     for election in elections:
         election_name = election['short_name']
         release_results(election_name)
+        time.sleep(2)
 
 def delete_elections(elections):
     for election in elections:
         election_name = election['short_name']
         delete_election(election_name)
+        time.sleep(2)
        
 async def main():
     try:
